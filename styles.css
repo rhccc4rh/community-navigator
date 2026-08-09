@@ -6,7 +6,7 @@ a{text-decoration:none;color:inherit}button,input,select,textarea{font:inherit}b
 .header-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-top:16px;padding-bottom:16px}.brand{display:flex;align-items:center;text-decoration:none}
 .site-logo{height:58px;width:auto;max-width:320px;display:block}
 .logo{width:44px;height:44px;border-radius:15px;background:var(--gold);display:grid;place-items:center;font-size:24px;color:var(--deep2)}.brand small{display:block;color:var(--muted);font-weight:500;margin-top:2px}
-.nav{display:flex;gap:6px;align-items:center;flex-wrap:wrap}.nav a{padding:10px 12px;border-radius:12px;font-size:14px;font-weight:600}.nav a:hover,.nav a.active{background:var(--mint)}.nav .cta{background:var(--deep);color:#fff;border-radius:999px;padding:10px 16px}
+.nav{display:flex;gap:6px;align-items:center;flex-wrap:wrap}.nav a{padding:10px 12px;border-radius:4px;font-size:14px;font-weight:600}.nav a:hover,.nav a.active{background:var(--mint)}.nav .cta{background:var(--deep);color:#fff;border-radius:4px;padding:10px 16px}
 .hero{
   background:linear-gradient(135deg,var(--deep2) 0%,var(--deep) 58%,#1f8fa3 100%);
   color:#fff;
