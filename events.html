@@ -1,1 +1,266 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#063f48"><title>Events | Community Navigator</title><link rel="stylesheet" href="styles.css"></head><body><header class="header"><div class="shell header-inner"><a class="brand" href="index.html"><img src="Community Navigator Logo.png" alt="Community Navigator" class="site-logo" style="height:58px;width:auto;max-width:320px;display:block"></a><button class="mobile-toggle" type="button">Menu</button><nav class="nav"><a class="" href="index.html">Home</a><a class="" href="services.html">Find Services</a><a class="" href="agencies.html">Agency Directory</a><a class="" href="report.html">Report a Concern</a><a class="active" href="events.html">Events</a><a class="cta" href="help.html">Ask RHCCC</a></nav></div></header><section class="page-hero"><div class="shell"><div class="eyebrow">Community calendar</div><h1>Upcoming meetings and events</h1><p>Meetings, workshops, volunteer activities, and local agency events.</p></div></section><section class="section"><div class="shell"><div class="filters"><button class="filter-btn active" data-event="all">All</button><button class="filter-btn" data-event="meeting">Meetings</button><button class="filter-btn" data-event="workshop">Workshops</button><button class="filter-btn" data-event="volunteer">Volunteer</button></div><div id="eventsGrid" class="grid3"></div></div></section><footer class="footer"><div class="shell footer-grid"><div><strong>Community Navigator</strong><p>A resident service of the Rowland Heights Community Coordinating Council.</p></div><div><strong>RHCCC</strong><p>Rowland Heights, California<br><a href="mailto:RHCCC4RH@gmail.com">RHCCC4RH@gmail.com</a></p></div><div><strong>Important</strong><p>RHCCC is not an emergency dispatch service. Call 911 for an immediate threat to life or safety.</p></div></div></footer><script src="data.js"></script><script src="app.js"></script><script>let ef='all';function renderEvents(){const list=EVENTS.filter(e=>ef==='all'||e.type===ef);document.getElementById('eventsGrid').innerHTML=list.map(e=>`<article class="card"><div class="notice"><span class="pill">${e.type}</span><h3 style="margin-top:12px">${e.date} · ${e.time}</h3></div><h3 style="margin-top:16px">${e.title}</h3><p class="muted">${e.location}</p><p class="muted">${e.description}</p></article>`).join('')}document.querySelectorAll('[data-event]').forEach(b=>b.addEventListener('click',()=>{ef=b.dataset.event;document.querySelectorAll('[data-event]').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderEvents()}));renderEvents();</script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#1f4fa3">
+  <title>Events | Community Navigator</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<header class="header">
+  <div class="shell header-inner">
+
+    <a class="brand" href="index.html">
+      <img
+        src="Community Navigator Logo.png"
+        alt="Community Navigator"
+        class="site-logo"
+        style="height:58px;width:auto;max-width:320px;display:block">
+    </a>
+
+    <button class="mobile-toggle" type="button">Menu</button>
+
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="services.html">Find Services</a>
+      <a href="agencies.html">Agency Directory</a>
+      <a href="report.html">Report a Concern</a>
+      <a class="active" href="events.html">Events</a>
+      <a class="cta" href="help.html">Ask RHCCC</a>
+    </nav>
+
+  </div>
+</header>
+
+
+<section class="page-hero">
+  <div class="shell">
+    <div class="eyebrow">Community calendar</div>
+    <h1>Upcoming meetings and events</h1>
+    <p>Meetings, workshops, volunteer activities, and other events serving the Rowland Heights community.</p>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="shell">
+
+    <div id="eventsStatus" class="notice">
+      Loading upcoming events...
+    </div>
+
+    <div
+      id="eventsGrid"
+      class="grid3"
+      style="margin-top:24px">
+    </div>
+
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="shell footer-grid">
+
+    <div>
+      <strong>Community Navigator</strong>
+      <p>A resident service of the Rowland Heights Community Coordinating Council.</p>
+    </div>
+
+    <div>
+      <strong>RHCCC</strong>
+      <p>
+        Rowland Heights, California<br>
+        <a href="mailto:RHCCC4RH@gmail.com">RHCCC4RH@gmail.com</a>
+      </p>
+    </div>
+
+    <div>
+      <strong>Important</strong>
+      <p>RHCCC is not an emergency dispatch service. Call 911 for an immediate threat to life or safety.</p>
+    </div>
+
+  </div>
+</footer>
+
+
+<script src="app.js"></script>
+
+<script>
+
+const EVENTS_FEED =
+  "https://script.google.com/macros/s/AKfycbwv2NWlRLZED6osBwBlLM1Knq-hCTyt2_RPyTM8eW6WuF7l7NqPxiwIjz1ecrPqqkWi/exec";
+
+
+function escapeHTML(value) {
+  return String(value || "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+
+function formatDate(dateString) {
+
+  if (!dateString) return "";
+
+  const parts = dateString.split("-");
+
+  if (parts.length !== 3) {
+    return escapeHTML(dateString);
+  }
+
+  const date = new Date(
+    Number(parts[0]),
+    Number(parts[1]) - 1,
+    Number(parts[2])
+  );
+
+  return date.toLocaleDateString("en-US", {
+    weekday: "short",
+    month: "long",
+    day: "numeric",
+    year: "numeric"
+  });
+}
+
+
+function isUpcoming(dateString) {
+
+  if (!dateString) return true;
+
+  const parts = dateString.split("-");
+
+  if (parts.length !== 3) return true;
+
+  const eventDate = new Date(
+    Number(parts[0]),
+    Number(parts[1]) - 1,
+    Number(parts[2]),
+    23,
+    59,
+    59
+  );
+
+  return eventDate >= new Date();
+}
+
+
+async function loadEvents() {
+
+  const grid = document.getElementById("eventsGrid");
+  const status = document.getElementById("eventsStatus");
+
+  try {
+
+    const response = await fetch(EVENTS_FEED);
+
+    if (!response.ok) {
+      throw new Error("Events feed unavailable.");
+    }
+
+    const data = await response.json();
+
+    const events = data
+      .filter(event => isUpcoming(event["Date"]))
+      .sort((a, b) =>
+        String(a["Date"]).localeCompare(String(b["Date"]))
+      );
+
+
+    if (!events.length) {
+
+      status.innerHTML =
+        "<strong>No upcoming events are currently posted.</strong><br>" +
+        "Check back soon for RHCCC meetings and community activities.";
+
+      grid.innerHTML = "";
+
+      return;
+    }
+
+
+    status.style.display = "none";
+
+
+    grid.innerHTML = events.map(event => {
+
+      const title = escapeHTML(event["Event Title"]);
+      const date = formatDate(event["Date"]);
+      const time = escapeHTML(event["Time"]);
+      const location = escapeHTML(event["Location"]);
+      const description = escapeHTML(event["Description"]);
+      const link = String(event["Link"] || "").trim();
+
+
+      const linkHTML = link
+        ? `<p style="margin-top:18px">
+             <a class="btn btn-deep"
+                href="${escapeHTML(link)}"
+                target="_blank"
+                rel="noopener">
+               Event information
+             </a>
+           </p>`
+        : "";
+
+
+      return `
+        <article class="card">
+
+          <div class="eyebrow">
+            Upcoming event
+          </div>
+
+          <h2 style="margin-top:10px">
+            ${title}
+          </h2>
+
+          <p>
+            <strong>${date}</strong>
+            ${time ? `<br>${time}` : ""}
+          </p>
+
+          ${location
+            ? `<p class="muted"><strong>Location:</strong> ${location}</p>`
+            : ""
+          }
+
+          ${description
+            ? `<p class="muted">${description}</p>`
+            : ""
+          }
+
+          ${linkHTML}
+
+        </article>
+      `;
+
+    }).join("");
+
+
+  } catch (error) {
+
+    console.error(error);
+
+    status.innerHTML =
+      "<strong>Events could not be loaded right now.</strong><br>" +
+      "Please check back shortly.";
+
+  }
+}
+
+
+loadEvents();
+
+</script>
+
+</body>
+</html>
