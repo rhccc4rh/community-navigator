@@ -7,8 +7,44 @@ a{text-decoration:none;color:inherit}button,input,select,textarea{font:inherit}b
 .site-logo{height:58px;width:auto;max-width:320px;display:block}
 .logo{width:44px;height:44px;border-radius:15px;background:var(--gold);display:grid;place-items:center;font-size:24px;color:var(--deep2)}.brand small{display:block;color:var(--muted);font-weight:500;margin-top:2px}
 .nav{display:flex;gap:6px;align-items:center;flex-wrap:wrap}.nav a{padding:10px 12px;border-radius:12px;font-size:14px;font-weight:600}.nav a:hover,.nav a.active{background:var(--mint)}.nav .cta{background:var(--deep);color:#fff;border-radius:999px;padding:10px 16px}
-.hero{background:var(--deep);color:#fff;position:relative;overflow:hidden}.hero:before{content:"";position:absolute;inset:0;background-image:radial-gradient(circle at 1px 1px,rgba(255,255,255,.14) 1px,transparent 0);background-size:22px 22px;opacity:.7}
-.hero-grid{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:46px;align-items:center;padding-top:82px;padding-bottom:82px}.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.16em;font-weight:800;color:#87c9c6}.hero .eyebrow{color:#b7d8d7}
+.hero{
+  background:linear-gradient(135deg,var(--deep2) 0%,var(--deep) 58%,#1f8fa3 100%);
+  color:#fff;
+  position:relative;
+  overflow:hidden
+}
+
+.hero:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 20% 20%,rgba(255,255,255,.10),transparent 30%),
+    radial-gradient(circle at 85% 30%,rgba(255,255,255,.08),transparent 28%);
+  opacity:1
+}
+
+.hero-grid{
+  position:relative;
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:56px;
+  align-items:center;
+  padding-top:88px;
+  padding-bottom:88px
+}
+
+.eyebrow{
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  font-weight:800;
+  color:#1f9aaa
+}
+
+.hero .eyebrow{
+  color:#cfeff2
+}
 h1{font-size:clamp(44px,6vw,76px);line-height:.98;letter-spacing:-.045em;margin:16px 0 22px}h2{font-size:clamp(30px,4vw,46px);line-height:1.05;letter-spacing:-.035em;margin:0}h3{font-size:21px;margin:0}
 .lead{font-size:18px;line-height:1.7;color:rgba(255,255,255,.75);max-width:700px}.gold{color:var(--gold)}
 .searchbar{display:flex;gap:8px;background:#fff;border-radius:18px;padding:8px;margin-top:28px;max-width:720px}.searchbar input{flex:1;min-width:0;border:0;outline:0;padding:13px 14px;color:#17292d}
